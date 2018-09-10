@@ -43,6 +43,17 @@ hidden: false # 是否删除/隐藏
 ---
 ```
 
+## 安装
+
+**1.前端**
+
+查看`frontEnd/README.md`
+
+**2.后端**
+
+查看`server/readme.md`
+
+
 
 ## 配置:
 
