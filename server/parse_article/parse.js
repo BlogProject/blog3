@@ -17,23 +17,25 @@
  * */
 var jsyaml = require('js-yaml')
 
-global.debug = console.log
+global.debug = require("debug")("debug")
 global.content_id = 'content_id'
 //打开db
-//
 
 async function main(dropDatabase){
   /* 1: 解析配置 */
+  debug("1.读取配置!!")
   var config = require("./analyConfig.js")()
 if( config == false){
     process.exit(1)
+    debug("读取配置失败")
   } else {
-    console.log("读取配置成功")
     global.C = config
+    debug("读取配置成功:",C)
     global.M = []
   }
 
   /* 2.连接数据库 */
+  debug("2.连接数据库!!")
   var db = require("../models/except/index.js")
   
   if( dropDatabase){
@@ -42,12 +44,15 @@ if( config == false){
   }
 
   /* 3.git clone or pull */
+  debug("3.git clone or pull!!")
   await require("./git.js")()
 
   /* 4.过滤文件 */
+  debug("4.过滤文件!!")
   require("./filter.js")(C.local_rep)
 
   /* 5.解析文章,上传数据库*/
+  debug("5.解析文章,上传数据库!!")
   await require("./article.js")(md_files)
 
   /* 退出:  */
