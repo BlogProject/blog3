@@ -1,15 +1,13 @@
 /* webhook */
 var express = require('express');
 var router = express.Router();
-var process = require("child_process")
+var parse = require("../parse_article/parse.js")
 
-router.post("/",function(req,res){
+router.post("/",async function(req,res){
   if(req.body.password === C.webhook_password){
-    console.log("webhook 成功")
-    process.exec(`node ${__dirname}/../parse_article/parse.js solo ${req.drop}`,(err,stdo,stde)=>{
-      console.log(stdo)
-    })
-  }
-  res.end()
-})
+        console.log("开始更新文章!")
+        let r = await parse({solo:false})
+        debug(r.join('\n'))
+        res.end(r.join('\n'))
+  })
 module.exports = router;

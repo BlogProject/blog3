@@ -16,51 +16,59 @@
  *
  * */
 var jsyaml = require('js-yaml')
+global.pdebug = require("debug")("parse")
 
-global.debug = require("debug")("debug")
-global.content_id = 'content_id'
-//打开db
-
-async function main(dropDatabase){
-  /* 1: 解析配置 */
-  debug("1.读取配置!!")
-  var config = require("./analyConfig.js")()
-if( config == false){
-    process.exit(1)
-    debug("读取配置失败")
-  } else {
-    global.C = config
-    debug("读取配置成功:",C)
+async function parse(config){
+  if( config.solo){
     global.M = []
+    global.content_id = 'content_id'
+  }
+  var last_err = []     //最后的错误
+
+  /* 1: 解析配置 */
+  pdebug("1.读取配置!!")
+  var yaml_config
+  var db_connect
+  try{
+    yaml_config = require("./analyConfig.js")()
+    if( config.solo)
+      global.C = yaml_config
+  }
+  catch(e){
+    last_err.push(e)
+    return last_err;
   }
 
-  /* 2.连接数据库 */
-  debug("2.连接数据库!!")
-  var db = require("../models/except/index.js")
-  
-  if( dropDatabase){
-    debug("删除整个库!!")
-    await db.dropDatabase()
+  if( config.solo)
+      db_connect = require("../models/except/index.js")
+  else
+      db_connect = db
+
+
+  /* 删除库,重新创建 */
+  if(config.dropDatabse){
+    pdebug("删除整个库!!")
+    await db_connect.dropDatabase()
   }
 
+  /* git clone or pull */
   /* 3.git clone or pull */
-  debug("3.git clone or pull!!")
-  await require("./git.js")()
+  pdebug("3.git clone or pull!!")
+  await require("./git.js")(yaml_config)
 
-  /* 4.过滤文件 */
-  debug("4.过滤文件!!")
-  require("./filter.js")(C.local_rep)
+  pdebug("4.过滤文件!!")
+  var md_files = require("./filter.js")(yaml_config)
 
   /* 5.解析文章,上传数据库*/
-  debug("5.解析文章,上传数据库!!")
+  pdebug("5.解析文章,上传数据库!!")
   await require("./article.js")(md_files)
 
-  /* 退出:  */
-  db.close()
+  if(config.solo)
+    /* 退出:  */
+    db_connect.close()
+
+  return last_err
+
 }
 
-//main()
-if( process.argv[2] == "solo"){
-    main(process.argv[3] == 'drop')
-}
-module.exports = main
+module.exports = parse

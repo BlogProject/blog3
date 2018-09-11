@@ -19,8 +19,9 @@ function analy_config(){
     }
   }
   
-  console.log("没有找到配置文件,请在下在的路径里创建:")
-  console.log(config_list)
+  pdebug("没有找到配置文件,请在下在的路径里创建:")
+  pdebug(config_list)
+  throw(`在相应的路径里:${config_list},没有找到配置文件!`)
   return false
 }
 

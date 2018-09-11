@@ -11,7 +11,9 @@ async function Article(mds){
 
     if( res.noheader == undefined) { //存在文件头
       let doc = await M['article'].findOne({_id:res._id})
-      if( doc == null || doc.md5 !== doc.md5){
+
+      if( doc == null || doc.md5 !== res.md5){
+        pdebug("更新文章",res.title,real_path)
 
         /* 更新 */
         if(!res.series || typeof(res.series) != 'string')
@@ -26,9 +28,9 @@ async function Article(mds){
         if(U.isArray(res.category))  category = res.category
         if(U.isArray(res.tags))  tags = res.tags
 
-        debug('tags:',tags)
-        debug('series:',series)
-        debug('category:',category)
+        pdebug('tags:',tags)
+        pdebug('series:',series)
+        pdebug('category:',category)
 
         await M['content'].updateOne({_id:content_id},{$addToSet:{
           category:{$each: category},
