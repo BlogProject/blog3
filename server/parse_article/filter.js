@@ -19,13 +19,13 @@ function _filter(yaml){
   var dir_reg_list = [/^\./]
 
   /* 处理不加入的文件夹 */
-  for(let i =0;i<C.not_parse_dir_reg.length;i++){
-    dir_reg_list.push( new RegExp(C.not_parse_dir_reg[i],'i'))
+  for(let i =0;i<yaml.not_parse_dir_reg.length;i++){
+    dir_reg_list.push( new RegExp(yaml.not_parse_dir_reg[i],'i'))
   }
 
   /* 处理不加入的文件 */
-  for(let i =0;i<C.not_parse_file_reg.length;i++){
-    file_reg_list.push( new RegExp(C.not_parse_file_reg[i],'i'))
+  for(let i =0;i<yaml.not_parse_file_reg.length;i++){
+    file_reg_list.push( new RegExp(yaml.not_parse_file_reg[i],'i'))
   }
 
 
