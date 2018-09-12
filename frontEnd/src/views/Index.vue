@@ -46,7 +46,7 @@
       :count="count"
       :page="page"
       :border="true"
-      url="article"
+      url="_article"
       >
     </vtable>
   </div>

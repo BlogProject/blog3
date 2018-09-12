@@ -28,8 +28,7 @@ app.use('/images/:name',require('./image.js'));
 //全局
 global.debug = require('debug')('debug')
 
-
-if(process.env.DEBUG == "debug"){
+if(process.env.DEBUG.indexOf('debug') !== -1){
   debug("开启跨域")
   var cors = require('cors')
   app.use(cors())
@@ -45,23 +44,13 @@ global.db = require('./models/except/index.js')
 global.U = require('./utils/index.js')
 
 
-// 处理跨域
-app.all('*', corsConfig)
-function corsConfig (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Credentials', true)
-  res.header('Access-Control-Allow-Headers', 'token,Content-Type,Content-Length,Authorization, Access,X-Requested-With')
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,PATCH,OPTIONS')
-  if (res.method === 'OPTIONS') {
-    res.send(200)
-  } else {
-    next()
-  }
-}
-
 
 //app.use('/', require('./routes/index.js'));
-app.use('/article', require('./routes/article.js'));
+var index_path = path.join(__dirname,'../frontEnd/dist/index.html')
+app.get('/article/*',function(req,res){
+    res.sendFile(index_path)
+})
+app.use('/_article', require('./routes/article.js'));
 app.use('/image', require('./routes/image.js'));
 app.use("/webhook",require("./routes/webhook.js"));
 

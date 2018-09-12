@@ -6,12 +6,12 @@ export default {
     if( force === true){
         params.force = 'true'
     }
-    return api.get('article/'+id,params)
+    return api.get('_article/'+id,params)
   },
   list(params,force){
     if( force === true){
         params.force = 'true'
     }
-    return api.get('article',params)
+    return api.get('_article',params)
   }
 }

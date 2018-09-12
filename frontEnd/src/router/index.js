@@ -8,6 +8,7 @@ import Article from '../views/article.vue'
 import About from '../views/about.vue'
 
 const router =  new Router({
+    mode: 'history',
   routes: [
     {
       path: '/',

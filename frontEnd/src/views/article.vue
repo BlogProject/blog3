@@ -1,20 +1,24 @@
 <template>
+<div>
   <div class="markdownbody">
     <article-header 
       :title="title"
       :tags="tags"
       :visited="visited"
-      :author="author"
+      author="rainboy"
       :time="time"
       ></article-header>
     <div class="markdown-body" v-html="markdown">
     </div>
+  </div>
+    <comment> </comment>
   </div>
 </template>
 
 <script>
 import api from '../services/article.js'
 import articleHeader from '../components/articleHeader.vue'
+import comment from '../components/comment.vue'
 export default {
   name: 'article',
   data () {
@@ -49,7 +53,7 @@ export default {
     }
   },
   components:{
-    articleHeader
+    articleHeader,comment
   }
 }
 </script>

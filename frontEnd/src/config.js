@@ -1,5 +1,5 @@
 var real_server = "/"
-var server = process.env.NODE_ENV==='production'?real_server:'/'
+var server = process.env.NODE_ENV==='production'?real_server:'http://127.0.0.1:3001/'
 module.exports = {
   server: server,
   userConfigs:{

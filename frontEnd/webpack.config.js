@@ -3,6 +3,8 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 
+var publicPath = process.env.NODE_ENV==='production'?'/':'/dist/'
+
 module.exports = {
   entry: './src/main.js',
   externals:{
@@ -13,7 +15,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath:process.env.NODE_ENV==='production'?'/':'/dist/',
+    publicPath:publicPath,
     filename: 'build.js'
   },
   module: {
@@ -51,7 +53,10 @@ module.exports = {
     historyApiFallback: true,
     noInfo: false,
     host:"0.0.0.0",
-    disableHostCheck:true
+    disableHostCheck:true,
+      //historyApiFallback:{
+      //index:'/dist/index.html'//index.html为当前目录创建的template.html
+      //}
   },
   performance: {
     hints: false
@@ -79,8 +84,8 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new HtmlWebpackPlugin({
       title:'RainboyBlog',
-      template:'__index.html',
-      inject:'false',
+      template:'index.html',
+      inject:'body',
     }),
     new CopyWebpackPlugin([
       {from:"./static/loading.css"},
