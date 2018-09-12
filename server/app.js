@@ -28,7 +28,7 @@ app.use('/images/:name',require('./image.js'));
 //全局
 global.debug = require('debug')('debug')
 
-if(process.env.DEBUG.indexOf('debug') !== -1){
+if(process.env.DEBUG !== undefined && process.env.DEBUG.indexOf('debug') !== -1){
   debug("开启跨域")
   var cors = require('cors')
   app.use(cors())
