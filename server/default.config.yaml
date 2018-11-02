@@ -1,0 +1,12 @@
+# git 仓库地址
+article_git_rep:  https://597872644%40qq.com:597872644%40liu@gitee.com/Rainboy/blog_article.git
+local_rep: /home/rainboy/local_git #从远程仓库拉取后,本地存储地址
+log_path:  /home/rainboy/local_path #log保存的地址,主要是记录parse的log
+parse_hidden: false # 是否解析以`.`开始的文字
+not_parse_dir_reg:  # 不会解析的正则表达式的 文件夹名
+ - _draft$
+not_parse_file_reg: # 不会解析的正则表达式的 文件名
+ - "_draft$"
+DB:                 # 数据库相关
+  addr: 127.0.0.1/blog
+  opts: {}

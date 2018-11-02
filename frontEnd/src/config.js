@@ -3,7 +3,7 @@ var server = process.env.NODE_ENV==='production'?real_server:'http://127.0.0.1:3
 module.exports = {
   server: server,
   userConfigs:{
-        avatar:'/avatar.png',
+        avatar:'/static/avatar.png',
         name:'Rainboy',
         sign:'我好菜啊~',
         github:'rainboylvx',

@@ -88,8 +88,7 @@ if (process.env.NODE_ENV === 'production') {
       inject:'body',
     }),
     new CopyWebpackPlugin([
-      {from:"./static/loading.css"},
-      {from:"./static/avatar.png"},
+      {from:"./static",to:"./static"},
       {from:"./aboutme.md"},
     ])
   ])

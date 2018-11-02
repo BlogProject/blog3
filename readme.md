@@ -2,6 +2,9 @@ blog3: Rainboy写的给Rainboy使用的blog系统
 
 相对于blog2,blog3设计的更加简单
 
+
+注意:要手动把avatar复制到dist/目录?!
+
 特点:
 
  - 使用mongodb作为数据库
